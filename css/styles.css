@@ -1,0 +1,452 @@
+:root {
+  --wasp-scale: 0.7;
+}
+
+@font-face {
+  font-family: 'Luckiest Guy';
+  src: url(LuckiestGuy-Regular.ttf);
+}
+
+html, body {
+  background: linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%);
+  margin: 0;
+  padding: 0;
+}
+
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.game-title-wrapper {
+  position: relative;
+  height: 8rem;
+}
+
+.attack-result {
+  color: #ff7c00;
+  text-align: center;
+  margin-top: 0;
+  font-family: 'Luckiest Guy';
+  font-size: 1.4rem;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  letter-spacing: 1px;
+}
+
+h1.game-title, span.game-title-shadow {
+  display: block;
+  text-align: center;
+  padding: 2rem 0;
+  margin: 0;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 4rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: title-pulse 1s linear infinite;
+}
+
+h1.game-title {
+  background: #ffb76b;
+  background: linear-gradient(to bottom,  #ffb76b 0%,#ffa73d 45%,#ff7c00 46%,#ff7f04 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  z-index: 10;
+}
+
+span.game-title-shadow {
+  top: 3px;
+  z-index: 0;
+  filter: blur(1px);
+  z-index: 0;
+}
+
+@keyframes title-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  30% { transform: translateX(-50%) scale(1.1); }
+  65% { transform: translateX(-50%) scale(0.8); }
+}
+
+@keyframes animateCloud {
+  0% {
+    left: -500px;
+    /*margin-left: -1000px;*/
+  }
+  100% {
+    left: 100%;
+    /*margin-left: 100%;*/
+  }
+}
+
+div[class^='cloud-'] {
+  position: absolute;
+}
+
+.cloud-1 {
+  animation: animateCloud 35s linear infinite;
+  animation-delay: 1s;
+  transform: scale(0.65);
+  top: 32%;
+}
+.cloud-2 {
+  animation: animateCloud 40s linear infinite;
+  transform: scale(0.3);
+  opacity: 0.8;
+  top: 40%;
+}
+.cloud-3 {
+  animation: animateCloud 25s linear infinite;
+  animation-delay: 1s;
+  transform: scale(0.5);
+  top: 15%;
+}
+.cloud-4 {
+  animation: animateCloud 22s linear infinite;
+  transform: scale(0.4);
+  opacity: 0.9;
+  top: 17%;
+}
+
+.cloud {
+  position: relative;
+  background: #fff;
+  background: linear-gradient(top,  #fff 5%,#f1f1f1 100%);
+  border-radius: 100px;
+  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+  height: 120px;
+  width: 350px;
+}
+
+.cloud:after, .cloud:before {
+  position: absolute;
+  background: #fff;
+  content: '';
+  z-index: -1;
+}
+
+.cloud:after {
+  border-radius: 100px;
+  height: 100px;
+  left: 50px;
+  top: -50px;
+  width: 100px;
+}
+
+.cloud:before {
+  border-radius: 200px;
+  width: 180px;
+  height: 180px;
+  right: 50px;
+  top: -90px;
+}
+
+.ground {
+  height: 50%;
+  width: 200%;
+  position: absolute;
+  bottom: -35%;
+  left: 0;
+  left: -60%;
+  border-radius: 50%;
+  background: #55af41;
+  background: linear-gradient(to bottom, #55af41 0%, #299a0b 100%);
+}
+
+.wasps-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  height: 60%;
+  width: 80%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.wasps-wrapper .cell {
+  width: 20%;
+  height: 28%;
+}
+
+/* Wasps */
+.wasp {
+  position: relative;
+  transform: scale(var(--wasp-scale)) translateX(50%);
+
+  animation: wasp-horizontal 4s linear infinite;
+}
+
+.wasp .body {
+  position: relative;
+  width: 100px;
+  height: 75px;
+  background: repeating-radial-gradient(circle at 0%, #FED420, #FED420 19%, #272727 20%, #272727 29%, #FED420 30%);
+  border-radius: 45%;
+  transform: rotate(10deg);
+  border: 2px solid black;
+  box-shadow: inset 0 -12px 3px rgba(0, 0, 0, 0.15);
+}
+
+.wasp .wings {
+  width: 35px;
+  height: 60px;
+  background: white;
+  z-index: 0;
+  top: -50px;
+  left: 27px;
+  border-radius: 44%;
+  transform: rotate(-4deg);
+  border: 2px solid black;
+  position: absolute;
+  box-shadow: inset 4px 4px 3px rgba(0, 0, 0, 0.15);
+}
+
+.wasp .wings::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 35px;
+  height: 60px;
+  background: white;
+  top: 3px;
+  left: 31px;
+  transform: rotate(22deg);
+  border: 2px solid black;
+  border-radius: 44%;
+  box-shadow: inset 4px 4px 3px rgba(0, 0, 0, 0.15);
+}
+
+.wasp .head {
+  width: 70px;
+  height: 70px;
+  background: #fed420;
+  border-radius: 47%;
+  position: absolute;
+  top: -20px;
+  left: -45px;
+  border: 2px solid black;
+  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.15);
+  transform: rotate(12deg);
+}
+
+.wasp.queen .head::after {
+  content: '';
+  position: absolute;
+  top: -44px;
+  left: -6px;
+  display: block;
+  width: 64px;
+  height: 64px;
+  background: url(queen-crown.svg);
+  background-size: 64px 64px;
+  transform: rotate(-10deg);
+  z-index: 0;
+}
+
+.wasp.worker .head::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: -7px;
+  display: block;
+  width: 64px;
+  height: 64px;
+  background: url(worker-hat.svg);
+  background-size: 64px 64px;
+  transform: rotate(-6deg);
+  z-index: 0;
+}
+
+.wasp .eye {
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  background: white;
+  border-radius: 48%;
+  border: 2px solid black;
+  z-index: 2;
+}
+
+.wasp .eye::before {
+  content: '';
+  width: 40%;
+  height: 40%;
+  background: black;
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 10%;
+}
+
+.wasp .eye::after {
+  content: '';
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  background: white;
+  border-radius: 50%;
+  top: 49%;
+  left: 26%;
+}
+
+.wasp .left.eye {
+  top: 3px;
+  left: -8px;
+}
+
+.wasp .right.eye {
+  top: -6px;
+  left: 32px;
+}
+
+.wasp .sting {
+  position: absolute;
+  top: 50%;
+  left: 96px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 30px solid black;
+  transform: rotate(7deg);
+}
+
+.wasp .speech-bubble {
+  display: none;
+  background: white;
+  width: 120px;
+  height: 70px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 75px;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 26px;
+  left: -157px;
+  transform: rotate(5deg);
+  border: 2px solid black;
+}
+
+.wasp.just-hit .speech-bubble {
+  display: block;
+}
+
+.wasp .speech-bubble::after, .wasp .speech-bubble::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 18px solid white;
+  position: absolute;
+  transform: rotate(-49deg);
+}
+
+.wasp .speech-bubble::before {
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 19px solid #000000;
+  top: -4px;
+  right: -3px;
+}
+
+.wasp .health-bar-wrapper {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: -26px;
+  width: 125px;
+  height: 20px;
+  background: #e2e2e2;
+  background: linear-gradient(to bottom, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
+  border: 1px solid #bdbdbd;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.wasp .health-bar-wrapper .health-bar {
+  width: calc(100% - 8px);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: calc(100% - 8px);
+  background: #c7c7c7;
+  border: 1px solid #636363;
+}
+
+.wasp .health-bar-wrapper .health-bar .health {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.health.good {
+  background: #bfd255;
+  background: linear-gradient(to bottom, #bfd255 0%, #8eb92a 50%, #72aa00 51%, #9ecb2d 100%);
+}
+
+.health.medium {
+  background: #fceabb;
+  background: linear-gradient(to bottom,  #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%);
+}
+
+.health.bad {
+  background: #f85032;
+  background: linear-gradient(to bottom, #f85032 0%,#f16f5c 50%,#f6290c 51%,#f02f17 71%,#e73827 100%);
+}
+
+@keyframes wasp-horizontal {
+  0%, 100% {
+    transform: scale(var(--wasp-scale)) translateX(50%) translateY(0);
+  }
+  25% {
+    transform: scale(var(--wasp-scale)) translateX(75%) translateY(5%);
+  }
+  50% {
+    transform: scale(var(--wasp-scale)) translateX(50%) translateY(0);
+  }
+  75% {
+    transform: scale(var(--wasp-scale)) translateX(25%) translateY(-5%);
+  }
+}
+
+.action-wrapper {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: 250px;
+  height: 60px;
+  z-index: 10;
+  transform: translateX(-50%);
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 6px;
+  box-sizing: border-box;
+  background: #f6e6b4;
+  background: linear-gradient(to bottom, #f6e6b4 0%,#ed9017 100%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.action-wrapper form {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.action-wrapper form button {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: none;
+  background: #ffffff;
+  background: linear-gradient(to bottom, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%);
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 2rem;
+  line-height: 1.8;
+  color: #f13030;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
